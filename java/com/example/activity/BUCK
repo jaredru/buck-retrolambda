@@ -1,0 +1,17 @@
+
+project_config(
+    src_target = ':activity',
+)
+
+android_library(
+    name = 'activity',
+    srcs = glob(['*.java']),
+
+    deps = [
+        '//:java8_rt',
+        '//res/com/example/activity:res',
+    ],
+
+    visibility = [ 'PUBLIC' ],
+)
+

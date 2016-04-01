@@ -1,0 +1,31 @@
+
+project_config(
+    src_target = ':app',
+)
+
+android_binary(
+    name     = 'app',
+    manifest = 'AndroidManifest.xml',
+    keystore = ':debug_keystore',
+
+    deps     = [
+        '//java/com/example/activity:activity',
+    ],
+    no_dx = [
+        '//:java8_rt',
+        '//:retrolambda',
+    ],
+
+    preprocess_java_classes_bash = '$(location //:retrolambda.sh) $(location //:retrolambda) $ANDROID_BOOTCLASSPATH $IN_JARS_DIR $OUT_JARS_DIR',
+    preprocess_java_classes_deps = [
+        '//:retrolambda',
+        '//:retrolambda.sh',
+    ],
+)
+
+keystore(
+    name       = 'debug_keystore',
+    store      = 'debug.keystore',
+    properties = 'debug.keystore.properties',
+)
+
